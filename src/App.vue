@@ -6,13 +6,11 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import TodoList from "@/components/TodoList";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
     TodoList
   }
 };
@@ -34,11 +32,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
+  font-size: 24px;
 }
 
 .logo {
   display: block;
   margin: 20px auto;
-  height: auto;
+  height: 75px;
 }
 </style>
