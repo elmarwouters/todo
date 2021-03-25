@@ -21,24 +21,23 @@
         v-focus
       />
     </div>
+    <!-- end todo-item-left -->
     <div>
       <button @click="pluralize">Plural</button>
-      <span class="remove-item" @click="removeTodo(index)">
+      <span class="remove-item" @click="removeTodo(todo.id)">
         &times;
       </span>
     </div>
   </div>
+  <!-- end todo-item -->
 </template>
+
 <script>
 export default {
   name: "todo-item",
   props: {
     todo: {
       type: Object,
-      required: true
-    },
-    index: {
-      type: Number,
       required: true
     },
     checkAll: {
@@ -52,7 +51,7 @@ export default {
       title: this.todo.title,
       completed: this.todo.completed,
       editing: this.todo.editing,
-      beforeEdit: ""
+      beforeEditCache: ""
     };
   },
   created() {
@@ -74,46 +73,39 @@ export default {
     }
   },
   methods: {
-    removeTodo(index) {
-      eventBus.$emit("removedTodo", index);
+    removeTodo(id) {
+      this.$store.dispatch("deleteTodo", id);
     },
     editTodo() {
       this.beforeEditCache = this.title;
       this.editing = true;
     },
     doneEdit() {
-      if (this.title.trim().length == 0) {
+      if (this.title.trim() == "") {
         this.title = this.beforeEditCache;
       }
-
       this.editing = false;
-      eventBus.$emit("finishedEdit", {
-        index: this.index,
-        todo: {
-          id: this.id,
-          title: this.title,
-          completed: this.completed,
-          editing: this.editing
-        }
+      this.$store.dispatch("updateTodo", {
+        id: this.id,
+        title: this.title,
+        completed: this.completed,
+        editing: this.editing
       });
     },
     cancelEdit() {
       this.title = this.beforeEditCache;
-      this.editing.false;
+      this.editing = false;
     },
     pluralize() {
       eventBus.$emit("pluralize");
     },
     handlePluralize() {
       this.title = this.title + "s";
-      eventBus.$emit("finishedEdit", {
-        index: this.index,
-        todo: {
-          id: this.id,
-          title: this.title,
-          completed: this.completed,
-          editing: this.editing
-        }
+      this.$store.dispatch("updateTodo", {
+        id: this.id,
+        title: this.title,
+        completed: this.completed,
+        editing: this.editing
       });
     }
   }
