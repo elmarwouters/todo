@@ -17,7 +17,9 @@
         :key="todo.id"
         :todo="todo"
         :index="index"
+        :checkAll="!anyRemaining"
         @removedTodo="removeTodo"
+        @finishedEdit="finishedEdit"
       ></todo-item>
     </transition-group>
 
@@ -117,13 +119,6 @@ export default {
       return this.todos.filter(todo => todo.completed).length > 0;
     }
   },
-  directives: {
-    focus: {
-      inserted: function(el) {
-        el.focus();
-      }
-    }
-  },
   methods: {
     addTodo() {
       if (this.newTodo.trim().length == 0) {
@@ -147,6 +142,9 @@ export default {
     },
     clearCompleted() {
       this.todos = this.todos.filter(todo => !todo.completed);
+    },
+    finishedEdit(data) {
+      this.todos.splice(data.index, 1, data.todo);
     }
   }
 };
