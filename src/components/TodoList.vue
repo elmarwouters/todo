@@ -12,36 +12,13 @@
       enter-active-class="animated fadeInUp"
       leave-active-class="animated fadeOutDown"
     >
-      <div
+      <todo-item
         v-for="(todo, index) in todosFiltered"
         :key="todo.id"
-        class="todo-item"
-      >
-        <div class="todo-item-left">
-          <input type="checkbox" v-model="todo.completed" />
-          <div
-            v-if="!todo.editing"
-            @dblclick="editTodo(todo)"
-            class="todo-item-label"
-            :class="{ completed: todo.completed }"
-          >
-            {{ todo.title }}
-          </div>
-          <input
-            v-else
-            class="todo-item-edit"
-            type="text"
-            v-model="todo.title"
-            @blur="doneEdit(todo)"
-            @keyup.enter="doneEdit(todo)"
-            @keyup.esc="cancelEdit(todo)"
-            v-focus
-          />
-        </div>
-        <div class="remove-item" @click="removeTodo(index)">
-          &times;
-        </div>
-      </div>
+        :todo="todo"
+        :index="index"
+        @removedTodo="removeTodo"
+      ></todo-item>
     </transition-group>
 
     <div class="extra-container">
@@ -89,8 +66,13 @@
 </template>
 
 <script>
+import TodoItem from "./TodoItem";
+
 export default {
   name: "todo-list",
+  components: {
+    TodoItem
+  },
   data() {
     return {
       newTodo: "",
@@ -157,21 +139,6 @@ export default {
       this.newTodo = "";
       this.idForTodo++;
     },
-    editTodo(todo) {
-      this.beforeEditCache = todo.title;
-      todo.editing = true;
-    },
-    doneEdit(todo) {
-      if (todo.title.trim().length == 0) {
-        todo.title = this.beforeEditCache;
-      }
-
-      todo.editing = false;
-    },
-    cancelEdit(todo) {
-      todo.title = this.beforeEditCache;
-      todo.editing.false;
-    },
     removeTodo(index) {
       this.todos.splice(index, 1);
     },
@@ -203,7 +170,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  animation-duration: .3s;
+  animation-duration: 0.3s;
 }
 
 .remove-item {
