@@ -27,3 +27,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - [Video 3](https://www.youtube.com/watch?v=7AXiN5mrOgY&list=PLEhEHUEU3x5q-xB1On4CsLPts0-rZ9oos&index=3)
 - [Video 4](https://www.youtube.com/watch?v=yrCGcnn4_RU&list=PLEhEHUEU3x5q-xB1On4CsLPts0-rZ9oos&index=4)
 - [Video 5](https://www.youtube.com/watch?v=Ork8274eqYo&list=PLEhEHUEU3x5q-xB1On4CsLPts0-rZ9oos&index=5)
+- [Video 6](https://www.youtube.com/watch?v=_WWN2qqMmsU&list=PLEhEHUEU3x5q-xB1On4CsLPts0-rZ9oos&index=6)
